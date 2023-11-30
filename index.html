@@ -3,43 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-    <title>Number List Customizer</title>
+    <title>Draggable Element</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div id="button-container">
-            <button onclick="addToOrder(1)">1</button>
-            <button onclick="addToOrder(2)">2</button>
-            <button onclick="addToOrder(3)">3</button>
-            <button onclick="addToOrder(4)">4</button>
-            <button onclick="addToOrder(5)">5</button>
-            <button onclick="addToOrder(6)">6</button>
-            <button onclick="addToOrder(7)">7</button>
-        </div>
-
-        <label for="order">Customized List:</label>
-        <div id="display" class="customized-list"></div>
+    <div class="draggable" id="myDraggable">
+        Drag me!
     </div>
 
     <script src="script.js"></script>
-    <script>
-        let touchStartX = 0;
-
-        function handleTap(index) {
-            const newNumber = prompt("Enter a new number:");
-
-            // Validate the new number
-            if (newNumber !== null && newNumber !== "" && !isNaN(newNumber) && newNumber >= 1 && newNumber <= 7 && order.indexOf(parseInt(newNumber)) === -1) {
-                order[index] = parseInt(newNumber);
-                updateList();
-            } else if (order.indexOf(parseInt(newNumber)) !== -1) {
-                alert(`Number ${newNumber} has already been chosen. Please select a different number.`);
-            } else {
-                alert("Invalid input. Please enter a number between 1 and 7.");
-            }
-        }
-    </script>
 </body>
 </html>
