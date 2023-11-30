@@ -24,5 +24,22 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        let touchStartX = 0;
+
+        function handleTap(index) {
+            const newNumber = prompt("Enter a new number:");
+
+            // Validate the new number
+            if (newNumber !== null && newNumber !== "" && !isNaN(newNumber) && newNumber >= 1 && newNumber <= 7 && order.indexOf(parseInt(newNumber)) === -1) {
+                order[index] = parseInt(newNumber);
+                updateList();
+            } else if (order.indexOf(parseInt(newNumber)) !== -1) {
+                alert(`Number ${newNumber} has already been chosen. Please select a different number.`);
+            } else {
+                alert("Invalid input. Please enter a number between 1 and 7.");
+            }
+        }
+    </script>
 </body>
 </html>
