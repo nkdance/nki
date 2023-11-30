@@ -1,44 +1,25 @@
-let order = [];
+const draggableElement = document.getElementById('myDraggable');
 
-function addToOrder(number) {
-    if (order.length < 7 && order.indexOf(number) === -1) {
-        order.push(number);
-        updateList();
-    } else if (order.indexOf(number) !== -1) {
-        alert(`Number ${number} has already been chosen. Please select a different number.`);
-    } else {
-        alert("You can only choose 7 numbers.");
-    }
-}
+let offsetX, offsetY, isDragging = false;
 
-function updateList() {
-    let display = document.getElementById("display");
-    display.innerHTML = order.map((num, index) => `<div class="draggable" data-index="${index}" ontouchstart="handleTap(${index})">${num}</div>`).join('');
+draggableElement.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    offsetX = e.clientX - draggableElement.getBoundingClientRect().left;
+    offsetY = e.clientY - draggableElement.getBoundingClientRect().top;
 
-    // Initialize Sortable after updating the list
-    new Sortable(display, {
-        animation: 150,
-        onEnd: updateOrderOnDrag
-    });
-}
+    draggableElement.style.cursor = 'grabbing';
+});
 
-function handleTap(index) {
-    const newNumber = prompt("Enter a new number:");
+document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
 
-    // Validate the new number
-    if (newNumber !== null && newNumber !== "" && !isNaN(newNumber) && newNumber >= 1 && newNumber <= 7 && order.indexOf(parseInt(newNumber)) === -1) {
-        order[index] = parseInt(newNumber);
-        updateList();
-    } else if (order.indexOf(parseInt(newNumber)) !== -1) {
-        alert(`Number ${newNumber} has already been chosen. Please select a different number.`);
-    } else {
-        alert("Invalid input. Please enter a number between 1 and 7.");
-    }
-}
+    const x = e.clientX - offsetX;
+    const y = e.clientY - offsetY;
 
-function updateOrderOnDrag(evt) {
-    // Update the order array when an item is dragged and dropped
-    const newIndex = evt.newIndex;
-    const movedItem = order.splice(evt.oldIndex, 1)[0];
-    order.splice(newIndex, 0, movedItem);
-}
+    draggableElement.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+document.addEventListener('mouseup', () => {
+    isDragging = false;
+    draggableElement.style.cursor = 'grab';
+});
