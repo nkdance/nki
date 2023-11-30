@@ -13,7 +13,7 @@ function addToOrder(number) {
 
 function updateList() {
     let display = document.getElementById("display");
-    display.innerHTML = order.map((num, index) => `<div class="draggable" data-index="${index}" draggable="true" ontouchstart="changeNumber(${index})">${num}</div>`).join('');
+    display.innerHTML = order.map((num, index) => `<div class="draggable" data-index="${index}" ontouchstart="handleTap(${index})">${num}</div>`).join('');
 
     // Initialize Sortable after updating the list
     new Sortable(display, {
@@ -22,9 +22,9 @@ function updateList() {
     });
 }
 
-function changeNumber(index) {
+function handleTap(index) {
     const newNumber = prompt("Enter a new number:");
-    
+
     // Validate the new number
     if (newNumber !== null && newNumber !== "" && !isNaN(newNumber) && newNumber >= 1 && newNumber <= 7 && order.indexOf(parseInt(newNumber)) === -1) {
         order[index] = parseInt(newNumber);
